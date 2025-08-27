@@ -33,9 +33,9 @@
 
 @layer components {
   .nav-bar {
-    @apply flex items-center justify-between p-6 bg-white shadow;
+    @apply flex items-center justify-between p-6 bg-white;
   }
   .main-container {
-    @apply min-h-screen bg-background;
+    @apply flex-grow bg-background;
   }
 }

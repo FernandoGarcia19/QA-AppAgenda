@@ -1,7 +1,11 @@
-
+import { useEffect } from "react";
+import { useState } from "react";
 const Home = () => {
+
+    const [contacts, setContacts] = useState([]);
+
     return (
-        <>
+        <div className="min-h-screen flex flex-col">
             <nav className="nav-bar">
                 <div>
                     <h1>Contactos</h1>
@@ -11,15 +15,24 @@ const Home = () => {
                     <img src="./3-vertical-dots.svg" className="w-10 h-10" alt="Opciones" />
                 </div>
             </nav>
-            <main className="main-container">
+            <main className="main-container relative flex flex-1 items-center justify-center">
+                {contacts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center text-gray-500">
+                        <img src="./empty-box.svg" className="w-64 h-64 mb-4" alt="No hay contactos" />
+                        <p className="text-xl">No hay contactos</p>
+                    </div>
+                ) : (
+                    //TODO: Implement fetching and displaying contacts with UseEffect
+                    <div>Contactos</div>
+                )}
                 <button
-                className="fixed bottom-6 right-6 bg-blue-500 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-blue-600"
+                className="absolute bottom-6 right-6 bg-blue-500 text-white rounded-full w-20 h-20 flex items-center justify-center shadow-lg hover:bg-blue-600"
                 >
                     +
                 </button>
             </main>
 
-        </>
+        </div>
     )
 }
 
