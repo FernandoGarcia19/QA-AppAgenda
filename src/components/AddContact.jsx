@@ -31,6 +31,17 @@ const AddContact = ({ onAddContact, onCancel }) => {
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
         </div>
+
+        <div>
+          <label className="block text-gray-700 text-sm mb-2">Surname</label>
+          <input
+            type="text"
+            placeholder="Enter surname"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+            className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+        </div>
       </div>
     </div>
   );
