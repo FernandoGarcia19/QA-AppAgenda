@@ -42,6 +42,17 @@ const AddContact = ({ onAddContact, onCancel }) => {
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
         </div>
+
+        <div>
+          <label className="block text-gray-700 text-sm mb-2">Phone number</label>
+          <input
+            type="tel"
+            placeholder="+998 __ ___ __ __"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+        </div>
       </div>
     </div>
   );
