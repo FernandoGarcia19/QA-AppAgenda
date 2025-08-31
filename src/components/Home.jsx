@@ -1,7 +1,9 @@
-import { useState } from "react";
-import AddContact from "./AddContact";  // ✅ corregí la ruta, tenía ".AddContact"
+import { use, useState } from "react";
+import AddContact from "./AddContact";  
+import { useParams } from "react-router-dom";
 
 const Home = () => {
+  const { id } = useParams();
   const [contacts, setContacts] = useState([]);
   const [page, setPage] = useState("Home");
 
@@ -26,15 +28,15 @@ const Home = () => {
           <h1>Contactos</h1>
         </div>
         <div className="flex items-center space-x-10">
-          <img src="./search.svg" className="w-10 h-10" alt="Buscar" />
-          <img src="./3-vertical-dots.svg" className="w-10 h-10" alt="Opciones" />
+          <img src="/search.svg" className="w-10 h-10" alt="Buscar" />
+          <img src="/3-vertical-dots.svg" className="w-10 h-10" alt="Opciones" />
         </div>
       </nav>
       <main className="main-container relative flex flex-1 items-center justify-center">
         {contacts.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-gray-500">
             <img
-              src="./empty-box.svg"
+              src="/empty-box.svg"
               className="w-64 h-64 mb-4"
               alt="No hay contactos"
             />
