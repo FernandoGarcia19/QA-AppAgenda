@@ -1,11 +1,28 @@
-import { use, useState } from "react";
-import AddContact from "./AddContact";  
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Home = () => {
+
   const { id } = useParams();
   const [contacts, setContacts] = useState([]);
   const navigate = useNavigate();
+  const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`
+  const fetchContacts = async () => {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error("Error fetching contacts");
+      }
+      const data = await response.json();
+      setContacts(data);
+    } catch (error) {
+      console.error("Failed to fetch contacts:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -34,7 +51,7 @@ const Home = () => {
               {contacts.map((c, i) => (
                 <li key={i} className="p-4 bg-white shadow rounded">
                   <p className="font-bold">{c.name}</p>
-                  <p>{c.phone}</p>
+                  <p>{c.telefono}</p>
                 </li>
               ))}
             </ul>
