@@ -48,8 +48,9 @@ const AddContact = () => {
       {/* Form */}
       <div className="flex flex-col p-4 space-y-6">
         <div>
-          <label className="block text-gray-700 text-sm mb-2">Nombre</label>
+          <label htmlFor="nombre" className="block text-gray-700 text-sm mb-2">Nombre</label>
           <input
+            id="nombre"
             type="text"
             placeholder="Introducir nombre"
             value={nombre}
@@ -59,8 +60,9 @@ const AddContact = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 text-sm mb-2">Email</label>
+          <label htmlFor="email" className="block text-gray-700 text-sm mb-2">Email</label>
           <input
+            id="email"
             type="text"
             placeholder="Introducir email"
             value={email}
@@ -70,8 +72,9 @@ const AddContact = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 text-sm mb-2">Numero de Telefono</label>
+          <label htmlFor="telefono" className="block text-gray-700 text-sm mb-2">Numero de Telefono</label>
           <input
+            id="telefono"
             type="tel"
             placeholder="+591 _ _ _ _ _ _ _ _ _"
             value={numeroTelefono}
