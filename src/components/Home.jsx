@@ -1,25 +1,11 @@
 import { use, useState } from "react";
 import AddContact from "./AddContact";  
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Home = () => {
   const { id } = useParams();
   const [contacts, setContacts] = useState([]);
-  const [page, setPage] = useState("Home");
-
-  const handleAddContact = (contact) => {
-    setContacts([...contacts, contact]);
-    setPage("Home");
-  };
-
-  if (page === "AddContact") {
-    return (
-      <AddContact
-        onAddContact={handleAddContact}
-        onCancel={() => setPage("Home")}
-      />
-    );
-  }
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -55,7 +41,7 @@ const Home = () => {
           </div>
         )}
         <button
-          onClick={() => setPage("AddContact")}
+          onClick={() => navigate(`/addConntact/${id}`)}
           className="absolute bottom-6 right-6 bg-blue-500 text-white rounded-full w-20 h-20 flex items-center justify-center shadow-lg hover:bg-blue-600"
         >
           +
