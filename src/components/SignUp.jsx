@@ -1,32 +1,32 @@
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
 	const [nombre, setNombre] = useState("");
 	const [email, setEmail] = useState("");
-	const [contrasena, setContrasena] = useState("");
+	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError("");
-		if (!nombre || !email || !contrasena) {
+		if (!nombre || !email || !password) {
 			setError("Todos los campos son obligatorios");
 			return;
 		}
 		try {
-			const response = await fetch("http://127.0.0.1:5000/register", {
+			const response = await fetch("http://127.0.0.1:5000/usuarios", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ nombre, email, contrasena }),
+				body: JSON.stringify({ nombre, email, password }),
 			});
 			if (response.ok) {
 				window.alert("Usuario registrado exitosamente");
-				navigate("/login");
+				navigate("/");
 			} else {
 				setError("Error al registrar usuario");
 			}
@@ -66,12 +66,12 @@ const SignUp = () => {
 					/>
 				</div>
 				<div>
-					<label htmlFor="contrasena" className="block text-gray-700 text-sm mb-2">Contraseña</label>
+					<label htmlFor="password" className="block text-gray-700 text-sm mb-2">Contraseña</label>
 					<input
-						id="contrasena"
+						id="password"
 						type="password"
-						value={contrasena}
-						onChange={e => setContrasena(e.target.value)}
+						value={password}
+						onChange={e => setPassword(e.target.value)}
 						className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
 						placeholder="Ingresa tu contraseña"
 						autoComplete="new-password"
@@ -84,6 +84,7 @@ const SignUp = () => {
 					Registrarse
 				</button>
 			</form>
+			<p>Ya tienes una cuenta? <Link to={"/"} className="text-blue-700 underline">Inicia Sesión</Link></p>
 		</div>
 	);
 };

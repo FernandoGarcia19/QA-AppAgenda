@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -72,6 +73,7 @@ const Login = () => {
 						Ingresar
 					</button>
 				</form>
+				<p>No tienes una cuenta? <Link to={"/Registrarse"} className="text-blue-700 underline">Registrate ahora mismo</Link></p>
 			</div>
 		);
 };
