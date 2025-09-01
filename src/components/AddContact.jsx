@@ -41,7 +41,7 @@ const AddContact = () => {
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         <button onClick={() => navigate(`/home/${id}`)} className="text-xl text-gray-700">←</button>
-        <h1 className="text-lg font-semibold">Add</h1>
+        <h1>Add</h1>
         <button onClick={handleSave} className="text-xl text-blue-500">✔</button>
       </div>
 
