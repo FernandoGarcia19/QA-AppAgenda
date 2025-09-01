@@ -35,9 +35,9 @@ const Home = () => {
           <img src="/3-vertical-dots.svg" className="w-10 h-10" alt="Opciones" />
         </div>
       </nav>
-      <main className="main-container relative flex flex-1 items-center justify-center">
+      <main className="main-container relative flex flex-1 items-start justify-center">
         {contacts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center text-gray-500">
+          <div className="flex flex-col items-center justify-center text-gray-500 w-full">
             <img
               src="/empty-box.svg"
               className="w-64 h-64 mb-4"
@@ -49,9 +49,15 @@ const Home = () => {
           <div className="p-4 w-full">
             <ul className="space-y-4">
               {contacts.map((c, i) => (
-                <li key={i} className="p-4 bg-white shadow rounded">
-                  <p className="font-bold">{c.name}</p>
-                  <p>{c.telefono}</p>
+                <li key={i} className="flex flex-row items-center">
+                  <img src="/contact-icon.svg" alt="contact icon" className="w-24 h-24"/>
+                  <div className="flex flex-col mx-4 text-left">
+                    <h3 className="font-bold text-2xl">{c.nombre}</h3>
+                    <p className="text-gray-600 text-xl">{c.telefono}</p>
+                  </div>
+                  <div className="ml-auto">
+                    <img src="/phonecall.svg" alt="call icon button" className="w-16 h-16"/>
+                  </div>
                 </li>
               ))}
             </ul>
