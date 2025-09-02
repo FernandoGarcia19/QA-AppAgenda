@@ -5,12 +5,13 @@ const AddContact = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [numeroTelefono, setNumeroTelefono] = useState("");
   const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`
 
   const handleSave = async () => {
-    if (!nombre || !email || !numeroTelefono) return;
+    if (!nombre || !apellido|| !email || !numeroTelefono) return;
     try {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -19,6 +20,7 @@ const AddContact = () => {
         },
         body: JSON.stringify({
           nombre: nombre,
+          apellido: apellido,
           email: email,
           telefono: numeroTelefono,
           usuario_id: id
@@ -55,6 +57,17 @@ const AddContact = () => {
             placeholder="Introducir nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
+            className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+        </div>
+        <div>
+          <label htmlFor="apellido" className="block text-gray-700 text-sm mb-2">Apellido</label>
+          <input
+            id="apellido"
+            type="text"
+            placeholder="Introducir apellido"
+            value={apellido}
+            onChange={(e) => setApellido(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
         </div>

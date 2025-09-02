@@ -55,8 +55,21 @@ const Home = () => {
                     <h3 className="font-bold text-2xl">{c.nombre}</h3>
                     <p className="text-gray-600 text-xl">{c.telefono}</p>
                   </div>
-                  <div className="ml-auto">
-                    <img src="/phonecall.svg" alt="call icon button" className="w-16 h-16"/>
+                  {/* Botón llamar */}
+                  <div className="ml-auto flex items-center space-x-4">
+                    <img
+                      src="/phonecall.svg"
+                      alt="call icon button"
+                      className="w-12 h-12 cursor-pointer"
+                    />
+
+                    {/* Botón editar */}
+                    <img
+                      src="/edit.png"   // <-- necesitas un icono "edit.svg" en public/
+                      alt="edit contact"
+                      className="w-12 h-12 cursor-pointer"
+                      onClick={() => navigate(`/editContact/${id}/${c.id}`)}
+                    />
                   </div>
                 </li>
               ))}
@@ -75,3 +88,4 @@ const Home = () => {
 };
 
 export default Home;
+
