@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Home = () => {
@@ -6,7 +6,9 @@ const Home = () => {
   const { id } = useParams();
   const [contacts, setContacts] = useState([]);
   const navigate = useNavigate();
-  const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`
+  const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
   const fetchContacts = async () => {
     try {
       const response = await fetch(API_URL);
@@ -24,15 +26,78 @@ const Home = () => {
     fetchContacts();
   }, []);
 
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    }
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
+
+  const handleExport = async (formato) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/usuarios/${id}/contactos/export?formato=${formato}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) throw new Error("Error al exportar");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = formato === "csv" ? "contactos.csv" : "contactos.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+      setMenuOpen(false);
+    } catch (err) {
+      console.log(err);
+      window.alert("No se pudo exportar el archivo");
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <nav className="nav-bar">
         <div>
           <h1>Contactos</h1>
         </div>
-        <div className="flex items-center space-x-10">
+        <div className="flex items-center space-x-10 relative">
           <img src="/search.svg" className="w-10 h-10" alt="Buscar" />
-          <img src="/3-vertical-dots.svg" className="w-10 h-10" alt="Opciones" />
+          <div className="relative" ref={menuRef}>
+            <img
+              src="/3-vertical-dots.svg"
+              className="w-10 h-10 cursor-pointer"
+              alt="Opciones"
+              onClick={() => setMenuOpen((open) => !open)}
+            />
+            {menuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg z-10">
+                <button
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  onClick={() => handleExport("csv")}
+                >
+                  Exportar a CSV
+                </button>
+                <button
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  onClick={() => handleExport("pdf")}
+                >
+                  Exportar a PDF
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
       <main className="main-container relative flex flex-1 items-start justify-center">
