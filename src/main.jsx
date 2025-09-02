@@ -8,12 +8,15 @@ import AddContact from './components/AddContact.jsx';
 import SignUp from './components/SignUp.jsx';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router-dom';
+import EditContact from './components/EditContact.jsx';
+
 
 const router = createBrowserRouter([
   { path: '/', element: <App /> },
   { path: '/home/:id', element: <Home /> },
   { path: '/addConntact/:id', element: <AddContact /> },
-  { path: '/Registrarse', element: <SignUp />}
+  { path: '/Registrarse', element: <SignUp />},
+  { path: '/editContact/:id/:idContacto', element: <EditContact /> } 
 
 ]);
 
