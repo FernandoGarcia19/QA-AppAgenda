@@ -4,13 +4,14 @@ import { useParams, useNavigate } from "react-router-dom";
 const AddContact = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [nombre, setNombre] = useState("");
+  const [name, setNombre] = useState("");
+  const [last_name, setApellido] = useState("");
   const [email, setEmail] = useState("");
-  const [numeroTelefono, setNumeroTelefono] = useState("");
+  const [telefono, setNumeroTelefono] = useState("");
   const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`
 
   const handleSave = async () => {
-    if (!nombre || !email || !numeroTelefono) return;
+    if (!name || !last_name|| !email || !telefono) return;
     try {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -18,9 +19,10 @@ const AddContact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nombre: nombre,
+          name: name,
+          last_name: last_name,
           email: email,
-          telefono: numeroTelefono,
+          telefono: telefono,
           usuario_id: id
         }),
       });
@@ -53,8 +55,19 @@ const AddContact = () => {
             id="nombre"
             type="text"
             placeholder="Introducir nombre"
-            value={nombre}
+            value={name}
             onChange={(e) => setNombre(e.target.value)}
+            className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+        </div>
+        <div>
+          <label htmlFor="apellido" className="block text-gray-700 text-sm mb-2">Apellido</label>
+          <input
+            id="apellido"
+            type="text"
+            placeholder="Introducir apellido"
+            value={last_name}
+            onChange={(e) => setApellido(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
         </div>
@@ -77,7 +90,7 @@ const AddContact = () => {
             id="telefono"
             type="tel"
             placeholder="+591 _ _ _ _ _ _ _ _ _"
-            value={numeroTelefono}
+            value={telefono}
             onChange={(e) => setNumeroTelefono(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />

@@ -114,7 +114,12 @@ const Home = () => {
           <div className="p-4 w-full">
             <ul className="space-y-4">
               {contacts.map((c, i) => (
-                <li key={i} className="flex flex-row items-center">
+                <li
+                  key={i}
+                  className="flex flex-row items-center"
+                  onClick={() => navigate(`/Profile/${id}/${c.id}`)}
+                  style={{ cursor: "pointer" }}
+                >
                   <img src="/contact-icon.svg" alt="contact icon" className="w-24 h-24"/>
                   <div className="flex flex-col mx-4 text-left">
                     <h3 className="font-bold text-2xl">{c.nombre}</h3>
@@ -140,3 +145,4 @@ const Home = () => {
 };
 
 export default Home;
+
