@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
-	const [nombre, setNombre] = useState("");
-	const [apellido, setApellido] = useState("");
+	const [name, setNombre] = useState("");
+	const [last_name, setApellido] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -13,7 +13,7 @@ const SignUp = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError("");
-		if (!nombre || !apellido || !email || !password) {
+		if (!name || !last_name || !email || !password) {
 			setError("Todos los campos son obligatorios");
 			return;
 		}
@@ -23,7 +23,7 @@ const SignUp = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ nombre,apellido, email, password }),
+				body: JSON.stringify({ name,last_name, email, password }),
 			});
 			if (response.ok) {
 				window.alert("Usuario registrado exitosamente");
@@ -47,7 +47,7 @@ const SignUp = () => {
 					<input
 						id="nombre"
 						type="text"
-						value={nombre}
+						value={name}
 						onChange={e => setNombre(e.target.value)}
 						className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
 						placeholder="Ingresa tu nombre"
@@ -59,7 +59,7 @@ const SignUp = () => {
 					<input
 						id="apellido"
 						type="text"
-						value={apellido}
+						value={last_name}
 						onChange={e => setApellido(e.target.value)}
 						className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
 						placeholder="Ingresa tu apellido"

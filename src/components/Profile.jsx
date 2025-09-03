@@ -43,7 +43,7 @@ const Profile = () => {
         </button>
         <h1 className="text-lg font-semibold">Perfil</h1>
         <button
-          onClick={() => navigate(`/edit/${id}/${idContacto}`)}
+          onClick={() => navigate(`/EditContact/${id}/${idContacto}`)}
           className="text-blue-500 text-sm"
         >
           Editar

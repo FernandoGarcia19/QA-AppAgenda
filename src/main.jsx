@@ -8,7 +8,7 @@ import SignUp from './components/SignUp.jsx';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router-dom';
 import EditContact from './components/EditContact.jsx';
-import Profile from './components/Profile.jsx'; // <--- Agrega esta línea
+import Profile from './components/Profile.jsx';
 
 
 const router = createBrowserRouter([

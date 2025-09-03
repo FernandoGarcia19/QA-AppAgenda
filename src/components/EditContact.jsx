@@ -18,6 +18,7 @@ const EditContact = () => {
         if (!response.ok) throw new Error("Error al obtener el contacto");
         const data = await response.json();
 
+        // Mapear los campos del backend a las variables del frontend
         setNombre(data.nombre || "");
         setApellido(data.apellido || "");
         setEmail(data.email || "");
@@ -44,9 +45,9 @@ const EditContact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nombre,
-          apellido,
-          email,
+          name: nombre,          // El backend espera 'name'
+          last_name: apellido,   // El backend espera 'last_name'
+          email: email,
           telefono: numeroTelefono,
         }),
       });
@@ -70,7 +71,7 @@ const EditContact = () => {
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         <button onClick={() => navigate(`/home/${id}`)} className="text-xl text-gray-700">←</button>
         <h1>Edit Contact</h1>
-        <button onClick={handleUpdate} className="text-xl text-blue-500">✔</button>
+        <button onClick={handleUpdate} className="text-xl text-blue-500">✓</button>
       </div>
 
       {/* Form */}
@@ -99,7 +100,7 @@ const EditContact = () => {
           <label htmlFor="email" className="block text-gray-700 text-sm mb-2">Email</label>
           <input
             id="email"
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3"
