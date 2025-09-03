@@ -5,6 +5,7 @@ const Home = () => {
 
   const { id } = useParams();
   const [contacts, setContacts] = useState([]);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`;
   const [menuOpen, setMenuOpen] = useState(false);
@@ -66,14 +67,30 @@ const Home = () => {
     }
   };
 
+  const filteredContacts = contacts.filter(c => {
+    const nombre = c.nombre ? c.nombre.toLowerCase() : "";
+    const apellido = c.apellido ? c.apellido.toLowerCase() : "";
+    const term = search.toLowerCase();
+    return nombre.includes(term) || apellido.includes(term);
+  });
+
   return (
     <div className="min-h-screen flex flex-col">
-      <nav className="nav-bar">
+      <nav className="nav-bar flex flex-row items-center justify-between px-4 py-2">
         <div>
           <h1>Contactos</h1>
         </div>
-        <div className="flex items-center space-x-10 relative">
-          <img src="/search.svg" className="w-10 h-10" alt="Buscar" />
+        <div className="flex items-center space-x-6 relative">
+          <div className="flex items-center bg-gray-100 rounded px-2 py-1">
+            <img src="/search.svg" className="w-6 h-6 mr-2" alt="Buscar" />
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Buscar..."
+              className="bg-gray-100 outline-none px-2 py-1 rounded"
+            />
+          </div>
           <div className="relative" ref={menuRef}>
             <img
               src="/3-vertical-dots.svg"
@@ -101,7 +118,7 @@ const Home = () => {
         </div>
       </nav>
       <main className="main-container relative flex flex-1 items-start justify-center">
-        {contacts.length === 0 ? (
+        {filteredContacts.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-gray-500 w-full">
             <img
               src="/empty-box.svg"
@@ -113,7 +130,7 @@ const Home = () => {
         ) : (
           <div className="p-4 w-full">
             <ul className="space-y-4">
-              {contacts.map((c, i) => (
+              {filteredContacts.map((c, i) => (
                 <li
                   key={i}
                   className="flex flex-row items-center"
@@ -122,7 +139,7 @@ const Home = () => {
                 >
                   <img src="/contact-icon.svg" alt="contact icon" className="w-24 h-24"/>
                   <div className="flex flex-col mx-4 text-left">
-                    <h3 className="font-bold text-2xl">{c.nombre}</h3>
+                    <h3 className="font-bold text-2xl">{c.nombre + " " + c.apellido}</h3>
                     <p className="text-gray-600 text-xl">{c.telefono}</p>
                   </div>
                   <div className="ml-auto">
