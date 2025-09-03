@@ -8,9 +8,9 @@ const EditContact = () => {
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [numeroTelefono, setNumeroTelefono] = useState("");
+  const [errors, setErrors] = useState({});
   const API_URL = `http://127.0.0.1:5000/contactos/${idContacto}`;
 
-  // Cargar datos del contacto
   useEffect(() => {
     const fetchContact = async () => {
       try {
@@ -18,7 +18,6 @@ const EditContact = () => {
         if (!response.ok) throw new Error("Error al obtener el contacto");
         const data = await response.json();
 
-        // Mapear los campos del backend a las variables del frontend
         setNombre(data.nombre || "");
         setApellido(data.apellido || "");
         setEmail(data.email || "");
@@ -31,13 +30,27 @@ const EditContact = () => {
     fetchContact();
   }, [API_URL]);
 
+  const validate = () => {
+    const newErrors = {};
+    if (!nombre.trim() || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombre)) {
+      newErrors.nombre = "Nombre solo debe contener letras y espacios";
+    }
+    if (!apellido.trim() || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(apellido)) {
+      newErrors.apellido = "Apellido solo debe contener letras y espacios";
+    }
+    if (email.trim() && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      newErrors.email = "Email no es válido";
+    }
+    if (!numeroTelefono.trim() || !/^\d+$/.test(numeroTelefono)) {
+      newErrors.numeroTelefono = "Teléfono solo debe contener números";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Actualizar contacto
   const handleUpdate = async () => {
-    if (!nombre || !apellido || !email || !numeroTelefono) {
-      window.alert("Todos los campos son obligatorios");
-      return;
-    }
-
+    if (!validate()) return;
     try {
       const response = await fetch(API_URL, {
         method: "PATCH",
@@ -116,6 +129,7 @@ const EditContact = () => {
             onChange={(e) => setNombre(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3"
           />
+          {errors.nombre && <p className="text-red-500 text-xs mt-1">{errors.nombre}</p>}
         </div>
         <div>
           <label htmlFor="apellido" className="block text-gray-700 text-sm mb-2">Apellido</label>
@@ -126,6 +140,7 @@ const EditContact = () => {
             onChange={(e) => setApellido(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3"
           />
+          {errors.apellido && <p className="text-red-500 text-xs mt-1">{errors.apellido}</p>}
         </div>
         <div>
           <label htmlFor="email" className="block text-gray-700 text-sm mb-2">Email</label>
@@ -136,6 +151,7 @@ const EditContact = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3"
           />
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
         <div>
           <label htmlFor="telefono" className="block text-gray-700 text-sm mb-2">Número de Teléfono</label>
@@ -146,6 +162,7 @@ const EditContact = () => {
             onChange={(e) => setNumeroTelefono(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3"
           />
+          {errors.numeroTelefono && <p className="text-red-500 text-xs mt-1">{errors.numeroTelefono}</p>}
         </div>
       </div>
     </div>

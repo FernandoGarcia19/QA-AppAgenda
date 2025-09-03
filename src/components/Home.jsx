@@ -67,7 +67,12 @@ const Home = () => {
     }
   };
 
-  const filteredContacts = contacts.filter(c => {
+  const sortedContacts = [...contacts].sort((a, b) => {
+    const nameA = ((a.nombre || "") + " " + (a.apellido || "")).toLowerCase();
+    const nameB = ((b.nombre || "") + " " + (b.apellido || "")).toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+  const filteredContacts = sortedContacts.filter(c => {
     const nombre = c.nombre ? c.nombre.toLowerCase() : "";
     const apellido = c.apellido ? c.apellido.toLowerCase() : "";
     const term = search.toLowerCase();

@@ -8,10 +8,29 @@ const AddContact = () => {
   const [last_name, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [telefono, setNumeroTelefono] = useState("");
+  const [errors, setErrors] = useState({});
   const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`
 
+  const validate = () => {
+    const newErrors = {};
+    if (!name.trim() || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(name)) {
+      newErrors.name = "Nombre solo debe contener letras y espacios";
+    }
+    if (!last_name.trim() || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(last_name)) {
+      newErrors.last_name = "Apellido solo debe contener letras y espacios";
+    }
+    if (email.trim() && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      newErrors.email = "Email no es válido";
+    }
+    if (!telefono.trim() || !/^\d+$/.test(telefono)) {
+      newErrors.telefono = "Teléfono solo debe contener números";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSave = async () => {
-    if (!name || !last_name|| !telefono) return;
+    if (!validate()) return;
     try {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -57,6 +76,7 @@ const AddContact = () => {
             onChange={(e) => setNombre(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
+          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
           <label htmlFor="apellido" className="block text-gray-700 text-sm mb-2">Apellido</label>
@@ -68,6 +88,7 @@ const AddContact = () => {
             onChange={(e) => setApellido(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
+          {errors.last_name && <p className="text-red-500 text-xs mt-1">{errors.last_name}</p>}
         </div>
 
         <div>
@@ -80,6 +101,7 @@ const AddContact = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
 
         <div>
@@ -92,6 +114,7 @@ const AddContact = () => {
             onChange={(e) => setNumeroTelefono(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
+          {errors.telefono && <p className="text-red-500 text-xs mt-1">{errors.telefono}</p>}
         </div>
       </div>
     </div>
