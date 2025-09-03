@@ -45,8 +45,8 @@ const EditContact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: nombre,          // El backend espera 'name'
-          last_name: apellido,   // El backend espera 'last_name'
+          name: nombre,
+          last_name: apellido, 
           email: email,
           telefono: numeroTelefono,
         }),
@@ -65,13 +65,46 @@ const EditContact = () => {
     }
   };
 
+  const handleDelete = async () => {
+  const confirmDelete = window.confirm("¿Seguro que deseas eliminar este contacto?");
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ confirmar: true }),
+    });
+
+    if (response.ok) {
+      window.alert("Contacto eliminado exitosamente");
+      navigate(`/home/${id}`);
+    } else {
+      const text = await response.text();
+      try {
+        const data = JSON.parse(text);
+        window.alert(data.error || "Error al eliminar el contacto");
+      } catch {
+        window.alert(text || "Error al eliminar el contacto");
+      }
+    }
+  } catch (error) {
+    window.alert("Error al eliminar el contacto");
+    console.error("Failed to delete contact:", error);
+  }
+};
+
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         <button onClick={() => navigate(`/home/${id}`)} className="text-xl text-gray-700">←</button>
         <h1>Edit Contact</h1>
-        <button onClick={handleUpdate} className="text-xl text-blue-500">✓</button>
+        <div className="flex space-x-4">
+          <button onClick={handleUpdate} className="text-xl text-blue-500">✓</button>
+          <button onClick={handleDelete} className="text-xl text-red-500">X</button>
+        </div>
       </div>
 
       {/* Form */}
