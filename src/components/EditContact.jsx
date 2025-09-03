@@ -97,18 +97,16 @@ const EditContact = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
-        <button onClick={() => navigate(`/home/${id}`)} className="text-xl text-gray-700">←</button>
+        <button onClick={() => navigate(`/home/${id}`)} className="text-3xl text-gray-700">←</button>
         <h1>Edit Contact</h1>
         <div className="flex space-x-4">
-          <button onClick={handleUpdate} className="text-xl text-blue-500">✓</button>
-          <button onClick={handleDelete} className="text-xl text-red-500">X</button>
+          <button onClick={handleUpdate} className="text-3xl text-blue-500">✓</button>
+          <button onClick={handleDelete} className="text-3xl text-red-500">X</button>
         </div>
       </div>
 
-      {/* Form */}
-      <div className="flex flex-col p-4 space-y-6">
+      <div className="main-container flex flex-col p-4 space-y-6">
         <div>
           <label htmlFor="nombre" className="block text-gray-700 text-sm mb-2">Nombre</label>
           <input

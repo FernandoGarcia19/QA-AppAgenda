@@ -152,7 +152,7 @@ const Home = () => {
         )}
         <button
           onClick={() => navigate(`/addConntact/${id}`)}
-          className="absolute bottom-6 right-6 bg-blue-500 text-white rounded-full w-20 h-20 flex items-center justify-center shadow-lg hover:bg-blue-600"
+          className="text-3xl absolute bottom-6 right-6 bg-blue-500 text-white rounded-full w-20 h-20 flex items-center justify-center shadow-lg hover:bg-blue-600"
         >
           +
         </button>

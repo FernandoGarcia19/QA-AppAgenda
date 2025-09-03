@@ -11,7 +11,7 @@ const AddContact = () => {
   const API_URL = `http://127.0.0.1:5000/usuarios/${id}/contactos`
 
   const handleSave = async () => {
-    if (!name || !last_name|| !email || !telefono) return;
+    if (!name || !last_name|| !telefono) return;
     try {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -40,15 +40,13 @@ const AddContact = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
-        <button onClick={() => navigate(`/home/${id}`)} className="text-xl text-gray-700">←</button>
+        <button onClick={() => navigate(`/home/${id}`)} className="text-4xl text-gray-700">←</button>
         <h1>Add</h1>
-        <button onClick={handleSave} className="text-xl text-blue-500">✔</button>
+        <button onClick={handleSave} className="text-4xl text-blue-500">✔</button>
       </div>
 
-      {/* Form */}
-      <div className="flex flex-col p-4 space-y-6">
+      <div className="main-container flex flex-col p-4 space-y-6">
         <div>
           <label htmlFor="nombre" className="block text-gray-700 text-sm mb-2">Nombre</label>
           <input
@@ -89,7 +87,7 @@ const AddContact = () => {
           <input
             id="telefono"
             type="tel"
-            placeholder="+591 _ _ _ _ _ _ _ _ _"
+            placeholder="_ _ _ _ _ _ _ _"
             value={telefono}
             onChange={(e) => setNumeroTelefono(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
