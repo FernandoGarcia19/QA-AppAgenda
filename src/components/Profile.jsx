@@ -33,25 +33,23 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         <button
           onClick={() => navigate(`/home/${id}`)}
-          className="text-xl text-gray-700"
+          className="text-2xl text-gray-700"
         >
           ←
         </button>
-        <h1 className="text-lg font-semibold">Perfil</h1>
+        <h1 className="font-semibold">Perfil</h1>
         <button
           onClick={() => navigate(`/EditContact/${id}/${idContacto}`)}
-          className="text-blue-500 text-sm"
+          className="text-blue-500 text-xl"
         >
           Editar
         </button>
       </div>
 
-      {/* Perfil */}
-      <div className="flex flex-col items-center p-6">
+      <div className="main-container flex flex-col items-center p-6">
         <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-3xl font-bold text-gray-600 mb-4">
           {contacto.nombre?.charAt(0)}
           {contacto.apellido?.charAt(0)}
