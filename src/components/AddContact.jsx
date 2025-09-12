@@ -16,7 +16,7 @@ const AddContact = () => {
     if (!name.trim() || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(name)) {
       newErrors.name = "Nombre solo debe contener letras y espacios";
     }
-    if (!last_name.trim() || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lastName)) {
+    if (!lastName.trim() || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lastName)) {
       newErrors.last_name = "Apellido solo debe contener letras y espacios";
     }
     if (email.trim() && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
@@ -111,7 +111,7 @@ const AddContact = () => {
             type="tel"
             placeholder="_ _ _ _ _ _ _ _"
             value={telefono}
-            onChange={(e) => setTelefono(e.last_name.value)}
+            onChange={(e) => setTelefono(e.target.value)}
             className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
           {errors.telefono && <p className="text-red-500 text-xs mt-1">{errors.telefono}</p>}

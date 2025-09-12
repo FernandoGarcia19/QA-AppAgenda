@@ -2,5 +2,5 @@ projectKey=QA-AppAgenda
 serverUrl=http://localhost:9000
 serverVersion=25.9.0.112764
 dashboardUrl=http://localhost:9000/dashboard?id=QA-AppAgenda
-ceTaskId=1d299043-4b36-4094-a7b0-5370facfa121
-ceTaskUrl=http://localhost:9000/api/ce/task?id=1d299043-4b36-4094-a7b0-5370facfa121
+ceTaskId=b4561a99-b361-4563-a45a-d640d7e0ee2c
+ceTaskUrl=http://localhost:9000/api/ce/task?id=b4561a99-b361-4563-a45a-d640d7e0ee2c
