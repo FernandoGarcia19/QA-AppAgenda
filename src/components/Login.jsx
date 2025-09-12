@@ -1,9 +1,7 @@
 
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -26,7 +24,7 @@ const Login = () => {
 				throw new Error("Credenciales incorrectas");
 			}
 			const data = await response.json();
-			if (data && data.id) {
+			if (data?.id) {
 				navigate(`/home/${data.id}`);
 			} else {
 				setError("Respuesta inválida del servidor");

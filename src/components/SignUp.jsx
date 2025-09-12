@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
-	const [name, setNombre] = useState("");
-	const [last_name, setApellido] = useState("");
+	const [name, setName] = useState("");
+	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -13,7 +13,7 @@ const SignUp = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError("");
-		if (!name || !last_name || !email || !password) {
+		if (!name || !lastName || !email || !password) {
 			setError("Todos los campos son obligatorios");
 			return;
 		}
@@ -23,7 +23,7 @@ const SignUp = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ name,last_name, email, password }),
+				body: JSON.stringify({ name,last_name: lastName, email, password }),
 			});
 			if (response.ok) {
 				window.alert("Usuario registrado exitosamente");
@@ -32,7 +32,7 @@ const SignUp = () => {
 				setError("Error al registrar usuario");
 			}
 		} catch (err) {
-			setError("Error al registrar usuario");
+			setError(err);
 		}
 	};
 
@@ -48,7 +48,7 @@ const SignUp = () => {
 						id="nombre"
 						type="text"
 						value={name}
-						onChange={e => setNombre(e.target.value)}
+						onChange={e => setName(e.target.value)}
 						className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
 						placeholder="Ingresa tu nombre"
 						autoComplete="name"
@@ -59,11 +59,11 @@ const SignUp = () => {
 					<input
 						id="apellido"
 						type="text"
-						value={last_name}
-						onChange={e => setApellido(e.target.value)}
+						value={lastName}
+						onChange={e => setLastName(e.target.value)}
 						className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
 						placeholder="Ingresa tu apellido"
-						autoComplete="Last name"
+						autoComplete="family-name"
 					/>
 				</div>
 				<div>

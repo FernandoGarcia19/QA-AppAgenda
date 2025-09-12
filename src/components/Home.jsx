@@ -97,12 +97,18 @@ const Home = () => {
             />
           </div>
           <div className="relative" ref={menuRef}>
-            <img
-              src="/3-vertical-dots.svg"
-              className="w-10 h-10 cursor-pointer"
-              alt="Opciones"
-              onClick={() => setMenuOpen((open) => !open)}
-            />
+          <button
+          type="button"
+          className="p-0 bg-transparent border-none cursor-pointer"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label="Opciones"
+          >
+          <img
+            src="/3-vertical-dots.svg"
+            className="w-10 h-10"
+            alt="Opciones"
+          />
+          </button>
             {menuOpen && (
               <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg z-10">
                 <button
@@ -137,19 +143,36 @@ const Home = () => {
             <ul className="space-y-4">
               {filteredContacts.map((c, i) => (
                 <li
-                  key={i}
+                  key={c.id}
                   className="flex flex-row items-center"
-                  onClick={() => navigate(`/Profile/${id}/${c.id}`)}
                   style={{ cursor: "pointer" }}
                 >
+                  <button
+                    type="button"
+                    className="flex flex-row items-center w-full bg-transparent border-none p-0 text-left"
+                    onClick={() => navigate(`/Profile/${id}/${c.id}`)}
+                    style={{ cursor: "pointer" }}
+                    aria-label={`Ver perfil de ${c.nombre} ${c.apellido}`}
+                  >
                   <img src="/contact-icon.svg" alt="contact icon" className="w-24 h-24"/>
                   <div className="flex flex-col mx-4 text-left">
                     <h3 className="font-bold text-2xl">{c.nombre + " " + c.apellido}</h3>
                     <p className="text-gray-600 text-xl">{c.telefono}</p>
                   </div>
                   <div className="ml-auto">
-                    <img src="/phonecall.svg" alt="call icon button" className="w-16 h-16"/>
+                      <button
+                        type="button"
+                        className="p-0 bg-transparent border-none cursor-pointer"
+                        aria-label="Llamar"
+                        onClick={e => {
+                          e.stopPropagation();
+                          window.open(`tel:${c.telefono}`);
+                        }}
+                      >
+                        <img src="/phonecall.svg" alt="call icon button" className="w-16 h-16"/>
+                      </button>
                   </div>
+                  </button>
                 </li>
               ))}
             </ul>

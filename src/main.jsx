@@ -5,8 +5,7 @@ import App from './App.jsx';
 import Home from './components/Home.jsx';
 import AddContact from './components/AddContact.jsx';
 import SignUp from './components/SignUp.jsx';
-import { createBrowserRouter } from 'react-router-dom';
-import { RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import EditContact from './components/EditContact.jsx';
 import Profile from './components/Profile.jsx';
 
